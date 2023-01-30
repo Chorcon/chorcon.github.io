@@ -7,6 +7,17 @@ let rollScore = 0;
 let isRolling = false;
 let gameOn = false;
 const winningScore = 50;
+
+// DOM
+let diceElem = document.querySelector('.dice');
+let btnNewElem = document.querySelector('.btn--new');
+let btnRollElem = document.querySelector('.btn--roll');
+let btnHoldElem = document.querySelector('.btn--hold');
+let overlayElem = document.querySelector('.overlay');
+let modalVictoryElem = document.querySelector('.modal--victory');
+let modalInputElem = document.querySelector('#modal-input');
+
+// player variables
 let playerID; // Used for choosing what player to change name on
 const player1 = {
   id: 0,
@@ -34,19 +45,19 @@ function reset() {
   player1.score = 0;
   player2.current = 0;
   player2.score = 0;
-  document.querySelector('.dice').classList.add('hidden');
-  document.querySelector('.btn--new').classList.add('hidden');
-  document.querySelector('.btn--roll').classList.remove('hidden');
-  document.querySelector('.btn--hold').classList.add('hidden');
+  diceElem.classList.add('hidden');
+  btnNewElem.classList.add('hidden');
+  btnRollElem.classList.remove('hidden');
+  btnHoldElem.classList.add('hidden');
+  overlayElem.classList.add('hidden');
+  modalVictoryElem.classList.add('hidden');
+  currentPlayer = player1;
   document.querySelector('#score--0').textContent = 0;
   document.querySelector('#score--1').textContent = 0;
   document.querySelector('#current--0').textContent = 0;
   document.querySelector('#current--1').textContent = 0;
-  currentPlayer = player1;
   document.querySelector(`.player--0`).classList.add('player--active');
   document.querySelector(`.player--1`).classList.remove('player--active');
-  document.querySelector('.overlay').classList.add('hidden');
-  document.querySelector('.modal--victory').classList.add('hidden');
   clearInterval(diceInterval);
   diceInterval = false;
   rollCounter = 0;
@@ -56,10 +67,10 @@ function reset() {
 // change name of the clicked playername
 // makes modal appear
 function changeName() {
-  document.querySelector('.overlay').classList.remove('hidden');
+  overlayElem.classList.remove('hidden');
   document.querySelector('.modal--changeName').classList.remove('hidden');
   playerID = this.id;
-  document.querySelector('#modal-input').focus();
+  modalInputElem.focus();
 }
 
 function winnerModal() {
@@ -68,19 +79,19 @@ function winnerModal() {
 }
 
 function applyNameChange() {
-  let textInput = document.querySelector('#modal-input');
+  let textInput = modalInputElem;
   if (textInput.value) {
     playerID === 'name--0' ? (player1.name = textInput.value) : (player2.name = textInput.value);
     document.querySelector(`#${playerID}`).textContent = textInput.value;
     textInput.value = '';
     document.querySelector('.modal').classList.add('hidden');
-    document.querySelector('.overlay').classList.add('hidden');
+    overlayElem.classList.add('hidden');
   }
 }
 
 // actual rolling happens here
 function diceRolling() {
-  let diceIcon = document.querySelector('.dice');
+  let diceIcon = diceElem;
   rollScore = Math.trunc(Math.random() * 6) + 1;
   diceIcon.src = `dice-${rollScore}.png`;
   rollCounter++;
@@ -101,8 +112,8 @@ function rollDice() {
   if (!gameOn) {
     gameOn = true;
 
-    document.querySelector('.dice').classList.remove('hidden');
-    document.querySelector('.btn--new').classList.remove('hidden');
+    diceElem.classList.remove('hidden');
+    btnNewElem.classList.remove('hidden');
   }
   isRolling = true;
   if (!diceInterval) {
@@ -119,7 +130,7 @@ function addCurrentScore(score) {
     changeActivePlayer();
   } else {
     currentPlayer.current += score;
-    document.querySelector('.btn--hold').classList.remove('hidden');
+    btnHoldElem.classList.remove('hidden');
   }
   document.querySelector(`#current--${currentPlayer.id}`).textContent = currentPlayer.current;
 }
@@ -147,11 +158,11 @@ function holdScore() {
 }
 
 function declareWinner() {
-  document.querySelector('.dice').classList.add('hidden');
-  document.querySelector('.btn--roll').classList.add('hidden');
-  document.querySelector('.btn--hold').classList.add('hidden');
-  document.querySelector('.modal--victory').classList.remove('hidden');
-  document.querySelector('.overlay').classList.remove('hidden');
+  diceElem.classList.add('hidden');
+  btnRollElem.classList.add('hidden');
+  btnHoldElem.classList.add('hidden');
+  modalVictoryElem.classList.remove('hidden');
+  overlayElem.classList.remove('hidden');
   document.querySelector('#winnertext').textContent = `
   Congratulations!
   ${currentPlayer.name} is the winner with ${currentPlayer.score} points!
@@ -159,9 +170,9 @@ function declareWinner() {
 }
 
 // add event listeners
-document.querySelector('.btn--roll').addEventListener('click', rollDice);
-document.querySelector('.btn--new').addEventListener('click', reset);
-document.querySelector('.btn--hold').addEventListener('click', holdScore);
+btnRollElem.addEventListener('click', rollDice);
+btnNewElem.addEventListener('click', reset);
+btnHoldElem.addEventListener('click', holdScore);
 document.querySelector('#name--0').addEventListener('click', changeName);
 document.querySelector('#name--1').addEventListener('click', changeName);
 document.querySelector('#modal-button').addEventListener('click', applyNameChange);
@@ -172,15 +183,8 @@ let closeButtons = document.querySelectorAll('.close-modal');
 for (let i = 0; i < closeButtons.length; i++) {
   closeButtons[i].addEventListener('click', function () {
     document.querySelector('.modal:not(.hidden)').classList.add('hidden');
-    document.querySelector('.overlay').classList.add('hidden');
+    overlayElem.classList.add('hidden');
   });
 }
 
 reset(); // start the game
-
-// TODO
-/*
-refactor code
-consider using white on all modals - remove 'white' class
-upload on code.harbosen.net/dice-game
-*/
