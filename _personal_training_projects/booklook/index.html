@@ -7,17 +7,41 @@
     <link rel="stylesheet" href="style.css" />
     <title>BookLook</title>
   </head>
-  <body class="fullpage">
+  <body id="body">
     <div class="moduleSearch">
+      <div id="closeSearch">&times;</div>
       <header class="center">
         <h1>BookLook</h1>
       </header>
       <div class="center">
-        <input id="searchInput" class="input" placeholder="Search for title, author, ISBN or other" type="search" />
-        <input id="searchButton" class="btn" type="button" value="&#x1F50E;&#xFE0E;" />
+        <input id="searchInput" class="input largeFont" placeholder="Search for title, author or ISBN" type="search" />
+        <input id="searchButton" class="btn largeFont" type="button" value="&#x1F50E;&#xFE0E;" />
       </div>
     </div>
-    <main class="hidden">conte</main>
+    <main id="mainContent" class="hidden">
+      <span id="bookDetails">
+        <img id="bookCover" src="res/placeholder.jpg" />
+        <p>
+          DETAILS that are very detailed indeed adssa das dasdsad avery detailed indeed adssa das dasdsad avery detailed
+          indeed adssa das dasdsad avery detailed indeed adssa das dasdsad avery detailed indeed adssa das dasdsad a
+        </p>
+      </span>
+      <span id="bookContent">
+        <h1 id="bookTitle">Title of the Book</h1>
+        <h5 id="bookAuthor">Author Writerson</h5>
+        <p id="bookSynopsis">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer metus nibh, gravida eget luctus eu, tempor
+          nec elit. Phasellus sodales ornare tempus. Fusce ultricies venenatis dui at dapibus. Praesent suscipit finibus
+          ex vitae ultricies. Maecenas at ligula et velit congue elementum. In ultrices sit amet ante a aliquet. Nunc
+          ultricies ante non orci posuere consectetur. Pellentesque suscipit ante in sagittis pellentesque. Aenean et
+          nisl eu nisl tempor sodales. Aenean sed pulvinar purus.
+          <br />
+          Proin efficitur tortor feugiat sodales eleifend. Vivamus sagittis venenatis turpis, eu lobortis mi eleifend
+          sit amet. Aenean at enim tortor. Etiam rutrum purus in tincidunt tincidunt. Mauris tincidunt mi maximus risus
+          blandit, ac suscipit leo rhoncus. Aliquam erat volutpat. Vivamus ultrices lectus eu dui sollicitudin blandit.
+        </p>
+      </span>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

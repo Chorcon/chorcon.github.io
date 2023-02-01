@@ -16,12 +16,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-width: 200px;
+  width: 75%;
+  margin: auto;
 }
 
 main {
-  border: 2px solid lightgray;
-  border-radius: 5em;
-  padding: 5px;
+  display: flex;
+  margin-top: 2em;
+  width: 100%;
 }
 
 header {
@@ -39,10 +42,12 @@ header {
   height: 100vh;
 }
 
+.largeFont {
+  font-size: large;
+}
+
 .moduleSearch {
-  min-width: 200px;
-  width: 500px;
-  width: 75%;
+  width: 100%;
 }
 
 .moduleSearch .input {
@@ -52,7 +57,6 @@ header {
   padding: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-  font-size: large;
 }
 
 .moduleSearch .btn {
@@ -60,7 +64,36 @@ header {
   border-radius: 0 5em 5em 0;
   background-color: white;
   padding: 0.5em;
-  font-size: large;
+  cursor: pointer;
+}
+
+#closeSearch {
+  font-size: 1.2em;
+  font-weight: bold;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  cursor: pointer;
+}
+
+#bookDetails {
+  max-width: 15em;
+}
+
+#bookCover {
+  border-radius: 1em;
+  width: 100%;
+  max-height: 100em;
+}
+
+#bookContent {
+  width: 100%;
+  padding-left: 1em;
+}
+
+#bookSynopsis {
+  white-space: pre-line;
+  font-size: small;
 }
 
 .hidden {
