@@ -6,6 +6,11 @@ const mainContent = document.querySelector('#mainContent');
 const searchInput = document.querySelector('#searchInput');
 const searchButton = document.querySelector('#searchButton');
 const closeSearchX = document.querySelector('#closeSearch');
+// DOM - Book details
+const bookCover = document.querySelector('#bookCover');
+const bookTitle = document.querySelector('#bookTitle');
+const bookAuthor = document.querySelector('#bookAuthor');
+const bookSynopsis = document.querySelector('#bookSynopsis');
 
 // Initial setup
 body.classList.add('fullpage');
@@ -30,7 +35,8 @@ function searchBook(e) {
   if (!searchString) return; // abort if no string
 
   displaySearchResult();
-  console.log(searchString);
+  console.log(`Searching for: ${searchString}`);
+  GBooksAPILookUp(searchString);
 }
 
 function displaySearchResult() {
@@ -52,4 +58,29 @@ function focusSearch() {
   searchButton.classList.add('largeFont');
   closeSearchX.classList.remove('inactive');
   closeSearchX.classList.remove('hidden');
+}
+
+function GBooksAPILookUp(searchString) {
+  // Testing the google books api
+  const APIKey = 'AIzaSyAV7Z4TEwgEV9SARRrxU6bJhYJexmz-g6k';
+  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchString}`)
+    .then(response => response.json())
+    .then(data => presentData(data));
+}
+
+function presentData(data) {
+  const volumeInfo = data.items[0].volumeInfo;
+  const bookObject = {
+    title: volumeInfo.title,
+    author: volumeInfo.authors,
+    category: volumeInfo.categories,
+    description: volumeInfo.description,
+    image: volumeInfo.imageLinks.thumbnail,
+  };
+
+  // Update DOM
+  bookCover.src = bookObject.image;
+  bookTitle.textContent = bookObject.title;
+  bookAuthor.textContent = bookObject.author;
+  bookSynopsis.textContent = bookObject.description;
 }
